@@ -1,12 +1,12 @@
-import React from "react";
-import {render, screen} from "@testing-library/react";
+import React from "react"
+import {render, screen} from "@testing-library/react"
 
-import App from "./App";
+import App from "./App"
 
 test("renders intro text", () => {
-  render(<App />);
+  render(<App />)
 
-  const introElement = screen.getByText(/Lets get this party started/i);
+  const introElement = screen.getByText(/Lets get this party started/i)
 
-  expect(introElement).toBeInTheDocument();
-});
+  expect(introElement).toBeInTheDocument()
+})

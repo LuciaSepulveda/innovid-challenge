@@ -1,5 +1,71 @@
 // Container
 .container {
   width: 100%;
-  max-width: 1024px;
+  min-height: 100vh;
+  margin: auto;
+  overflow: hidden;
+}
+
+.grid {
+  max-width: 1920px;
+  margin: auto;
+}
+
+.gridContainer {
+    width: 90%;
+    margin: auto;
+}
+
+@media only screen and (max-width: 764px) {
+    
+  .grid{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 10px;
+  }
+
+  .gridContainer {
+    margin-top: 30%;
+    width: 80%;
+}
+}
+
+
+@media only screen and (min-width: 764px) {
+    
+  .grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+  }
+
+  .gridContainer {
+    margin-top: 22%;
+}
+}
+
+@media only screen and (min-width: 1024px) {
+    
+  .grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+  }
+
+  .gridContainer {
+    margin-top: 18%;
+}
+}
+
+@media only screen and (min-width: 1400px) {
+    
+  .grid{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+  }
+
+  .gridContainer {
+    margin-top: 14%;
+}
 }

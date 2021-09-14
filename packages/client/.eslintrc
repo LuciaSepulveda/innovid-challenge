@@ -35,32 +35,39 @@
     "prettier/prettier": [
       "error",
       {
+        "endOfLine": "auto",
         "printWidth": 100,
         "trailingComma": "all",
         "tabWidth": 2,
-        "semi": true,
+        "semi": false,
         "singleQuote": false,
         "bracketSpacing": false,
-        "arrowParens": "always",
-        "endOfLine": "auto"
+        "arrowParens": "always"
       }
     ],
-    "import/order": ["warn", {"newlines-between": "always"}],
+    "import/order": ["warn", { "newlines-between": "always" }],
     "react/prop-types": "off",
     "react/self-closing-comp": "warn",
     "react-hooks/rules-of-hooks": "warn",
     "react-hooks/exhaustive-deps": "warn",
-    "react/jsx-sort-props": ["warn", {
-      "callbacksLast": true,
-      "shorthandFirst": true,
-      "noSortAlphabetically": false,
-      "reservedFirst": true
-    }],
+    "react/jsx-sort-props": [
+      "warn",
+      {
+        "callbacksLast": true,
+        "shorthandFirst": true,
+        "noSortAlphabetically": false,
+        "reservedFirst": true
+      }
+    ],
     "padding-line-between-statements": [
       "error",
       { "blankLine": "always", "prev": "*", "next": "return" },
-      { "blankLine": "always", "prev": ["const", "let", "var"], "next": "*"},
-      { "blankLine": "any", "prev": ["const", "let", "var"], "next": ["const", "let", "var"]}
+      { "blankLine": "always", "prev": ["const", "let", "var"], "next": "*" },
+      {
+        "blankLine": "any",
+        "prev": ["const", "let", "var"],
+        "next": ["const", "let", "var"]
+      }
     ]
   }
 }
