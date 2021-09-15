@@ -9,19 +9,16 @@ import styles from "./App.module.scss"
 const App: React.FC = () => {
   const constraintRef = React.useRef(null)
   const [servers, setServers] = React.useState<number>(4)
-  const [array, setArray] = React.useState<number[]>([1, 2, 3, 4])
+  const [array, setArray] = React.useState<number[]>([0, 1, 2, 3])
   const [update, setUpdate] = React.useState<boolean>(false)
   const [refresh, setRefresh] = React.useState<boolean>(false)
+  const [close, setClose] = React.useState<boolean>(false)
+  const [maximize, setMaximize] = React.useState<boolean>(false)
   const isMobile = useMediaQuery({maxWidth: 764})
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setServers(parseInt(event.target.value))
-  }
 
   const changeServers = (m: "add" | "sub") => {
     const aux = servers
 
-    console.log(aux)
     if (m === "add") setServers(aux + 1)
     else setServers(aux - 1)
     setUpdate(true)
@@ -43,42 +40,73 @@ const App: React.FC = () => {
   }, [servers, array, update])
 
   React.useEffect(() => {
-    if (refresh === true) setRefresh(false)
+    if (refresh === true) {
+      setRefresh(false)
+      setClose(false)
+      setMaximize(false)
+    }
   }, [refresh])
 
   return (
     <main className={styles.container}>
-      {!isMobile && (
-        <button
-          style={{position: "absolute", right: 10, top: 10, zIndex: 10}}
-          onClick={() => setRefresh(true)}
-        >
-          Refresh
-        </button>
-      )}
+      <button
+        style={{position: "absolute", right: 10, top: 10, zIndex: 10}}
+        onClick={() => setRefresh(true)}
+      >
+        Restore
+      </button>
       {isMobile && !refresh && (
         <>
-          <div className={`window ${styles.window}`}>
-            <div className="title-bar">
-              <div className="title-bar-text">Innovid challenge</div>
-              <div className="title-bar-controls">
-                <button aria-label="Minimize" />
-                <button aria-label="Maximize" />
-                <button aria-label="Close" />
+          {!close && !maximize && (
+            <div className={`window ${styles.window}`}>
+              <div className="title-bar">
+                <div className="title-bar-text">Innovid challenge</div>
+                <div className="title-bar-controls">
+                  <button aria-label="Minimize" onClick={() => setClose(true)} />
+                  <button aria-label="Maximize" onClick={() => setMaximize(!maximize)} />
+                  <button aria-label="Close" onClick={() => setClose(true)} />
+                </div>
+              </div>
+              <div className="window-body">
+                <div className="field-row">
+                  <label htmlFor="servers">Servers</label>
+                  {servers > 0 && <button onClick={() => changeServers("sub")}>-</button>}
+                  {servers < 4 && <button onClick={() => changeServers("add")}>+</button>}
+                </div>
               </div>
             </div>
-            <div className="window-body">
-              <div className="field-row">
-                <label htmlFor="servers">Servers</label>
-                {servers > 0 && <button onClick={() => changeServers("sub")}>-</button>}
-                {servers < 4 && <button onClick={() => changeServers("add")}>+</button>}
+          )}
+          {!close && maximize && (
+            <div
+              className="window"
+              style={{
+                position: "absolute",
+                width: "100%",
+                zIndex: 30,
+                height: "100vh",
+              }}
+            >
+              <div className="title-bar">
+                <div className="title-bar-text">Innovid challenge</div>
+                <div className="title-bar-controls">
+                  <button aria-label="Minimize" onClick={() => setClose(true)} />
+                  <button aria-label="Maximize" onClick={() => setMaximize(!maximize)} />
+                  <button aria-label="Close" onClick={() => setClose(true)} />
+                </div>
+              </div>
+              <div className="window-body">
+                <div className="field-row">
+                  <label htmlFor="servers">Servers</label>
+                  {servers > 0 && <button onClick={() => changeServers("sub")}>-</button>}
+                  {servers < 4 && <button onClick={() => changeServers("add")}>+</button>}
+                </div>
               </div>
             </div>
-          </div>
+          )}
           <div className={styles.gridContainer}>
             <div className={styles.grid}>
               {array.map((elem) => (
-                <Window key={elem} numb={elem} />
+                <Window key={elem} numb={elem + 1} />
               ))}
             </div>
           </div>
@@ -95,6 +123,33 @@ const App: React.FC = () => {
               position: "absolute",
             }}
           />
+          {!close && maximize && (
+            <div
+              className="window"
+              style={{
+                position: "absolute",
+                width: "100%",
+                zIndex: 30,
+                height: "100vh",
+              }}
+            >
+              <div className="title-bar">
+                <div className="title-bar-text">Innovid challenge</div>
+                <div className="title-bar-controls">
+                  <button aria-label="Minimize" onClick={() => setClose(true)} />
+                  <button aria-label="Maximize" onClick={() => setMaximize(!maximize)} />
+                  <button aria-label="Close" onClick={() => setClose(true)} />
+                </div>
+              </div>
+              <div className="window-body">
+                <div className="field-row">
+                  <label htmlFor="servers">Servers</label>
+                  {servers > 0 && <button onClick={() => changeServers("sub")}>-</button>}
+                  {servers < 4 && <button onClick={() => changeServers("add")}>+</button>}
+                </div>
+              </div>
+            </div>
+          )}
           <motion.div
             drag
             dragConstraints={constraintRef}
@@ -106,23 +161,25 @@ const App: React.FC = () => {
               zIndex: 2,
             }}
           >
-            <div className={`window ${styles.window}`}>
-              <div className="title-bar">
-                <div className="title-bar-text">Innovid challenge</div>
-                <div className="title-bar-controls">
-                  <button aria-label="Minimize" />
-                  <button aria-label="Maximize" />
-                  <button aria-label="Close" />
+            {!close && !maximize && (
+              <div className={`window ${styles.window}`}>
+                <div className="title-bar">
+                  <div className="title-bar-text">Innovid challenge</div>
+                  <div className="title-bar-controls">
+                    <button aria-label="Minimize" onClick={() => setClose(true)} />
+                    <button aria-label="Maximize" onClick={() => setMaximize(!maximize)} />
+                    <button aria-label="Close" onClick={() => setClose(true)} />
+                  </div>
+                </div>
+                <div className="window-body">
+                  <div className="field-row">
+                    <label htmlFor="servers">Servers</label>
+                    {servers > 0 && <button onClick={() => changeServers("sub")}>-</button>}
+                    {servers < 4 && <button onClick={() => changeServers("add")}>+</button>}
+                  </div>
                 </div>
               </div>
-              <div className="window-body">
-                <div className="field-row">
-                  <label htmlFor="servers">Servers</label>
-                  {servers > 0 && <button onClick={() => changeServers("sub")}>-</button>}
-                  {servers < 4 && <button onClick={() => changeServers("add")}>+</button>}
-                </div>
-              </div>
-            </div>
+            )}
           </motion.div>
           <div className={styles.gridContainer}>
             <div className={styles.grid}>
@@ -133,7 +190,7 @@ const App: React.FC = () => {
                   dragConstraints={constraintRef}
                   style={{position: "relative", cursor: "grab"}}
                 >
-                  <Window numb={elem} />
+                  <Window numb={elem + 1} />
                 </motion.div>
               ))}
             </div>
