@@ -64,7 +64,7 @@ const Window: React.FC<Props> = ({numb}) => {
   return (
     <div className="window">
       <div className="title-bar">
-        <div className="title-bar-text">{`Server ${numb}`}</div>
+        <div className="title-bar-text">{`Server ${numb + 1}`}</div>
       </div>
       <div className="window-body">
         {status && (
