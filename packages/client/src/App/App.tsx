@@ -155,7 +155,6 @@ const App: React.FC = () => {
             dragConstraints={constraintRef}
             style={{
               position: "absolute",
-              cursor: "grab",
               top: "8%",
               left: "40%",
               zIndex: 2,
@@ -188,7 +187,7 @@ const App: React.FC = () => {
                   key={elem}
                   drag
                   dragConstraints={constraintRef}
-                  style={{position: "relative", cursor: "grab"}}
+                  style={{position: "relative"}}
                 >
                   <Window numb={elem + 1} />
                 </motion.div>
