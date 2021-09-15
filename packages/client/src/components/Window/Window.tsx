@@ -31,9 +31,7 @@ const Window: React.FC<Props> = ({numb}) => {
   React.useEffect(() => {
     if (state === "init") {
       const getCpu = async () => {
-        const data = await axios.get(
-          `https://shrouded-wildwood-92661.herokuapp.com/status/:${numb}`,
-        )
+        const data = await axios.get(`http://localhost:8000/status/:${numb}`)
 
         setCpu(data.data.load)
       }
@@ -43,9 +41,7 @@ const Window: React.FC<Props> = ({numb}) => {
     }
     if (state === "ready") {
       const cpuInterval = setInterval(async () => {
-        const data = await axios.get(
-          `https://shrouded-wildwood-92661.herokuapp.com/status/:${numb}`,
-        )
+        const data = await axios.get(`http://localhost:8000/status/:${numb}`)
 
         setCpu(data.data.load)
       }, 5000)
@@ -68,7 +64,7 @@ const Window: React.FC<Props> = ({numb}) => {
   return (
     <div className="window">
       <div className="title-bar">
-        <div className="title-bar-text">{`Server #${numb}`}</div>
+        <div className="title-bar-text">{`Server ${numb + 1}`}</div>
       </div>
       <div className="window-body">
         {status && (
